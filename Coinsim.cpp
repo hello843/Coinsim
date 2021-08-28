@@ -43,7 +43,7 @@ public:
     string tier;
     int coinpersec;
     int price;
-    int number_of_miners
+    int* number_of_miners;
 };
 
 class Wallet {
@@ -78,11 +78,12 @@ void BuyMiner() {
     cout << miners[0];
 }
 
+
+
 int main()
-{
+{   
     std::cout << "Game Started!\nTo create a wallet type /walletcreate\n";
     CreateWallet();
-
     Coin copper;
     Wallet cprwallet;
     cprwallet.address = strsetter;
@@ -108,18 +109,23 @@ int main()
     cout << "\nNext lets buy a miner\n" <<
         "There are four types of miners for each coin\n" <<
         "Basic, Tier1, Tier2, Tier3\n" <<
-        "To buy one type the name of the coin and then the tier for example\n" <<
-        "/BuyCopperBasic";
+        "To buy one type, the name of the coin and then the tier for example\n" <<
+        "/BuyCopperBasic\n";
 
     Miner CopperBasic;
     CopperBasic.coin = "Copper";
-    CopperBasic.coinpersec
+    CopperBasic.coinpersec = rand() % 6;
+    #define Check_cpr_miners cout << miners[0];
+    CopperBasic.number_of_miners = &miners[0];
+    *CopperBasic.number_of_miners;
 
     cin >> line_input;
     if (line_input == "/BuyCopperBasic" )
     {
-        miners[0] ++;
-
+        CopperBasic.number_of_miners ++;
+        cprwallet.amount --;
+        Check_cpr_miners;
+        
     }
     else {
         while (line_input != "/BuyCopperBasic") {
@@ -131,6 +137,3 @@ int main()
 
 
 }
-
-
-
